@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Layuuu’s Little Happy Place — A special friendship website created by Vishnu for his best friend Layana (Layuuu)." />
+  <meta name="theme-color" content="#ffd1dc" />
+  <title>Layuuu’s Little Happy Place 🌸 | For My Best Friend</title>
+
+  <!-- Google Fonts: Quicksand & Outfit for a soft, friendly aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- SVG Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+</head>
+<body>
+  <!-- Canvas for Celebration Confetti (Self-contained, zero external libraries) -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Floating Background Decorative Elements Container -->
+  <div class="floating-decorations" id="floating-decorations" aria-hidden="true"></div>
+
+  <!-- Top Navigation & Controls Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo" aria-label="Layuuu's Happy Place Home">
+        <span class="logo-emoji">🌸</span>
+        <span class="logo-text">Layuuu’s Little Happy Place</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="#hero" class="nav-link">Home</a>
+        <a href="#surprise-section" class="nav-link">Surprise 💌</a>
+        <a href="#happy-corner" class="nav-link">Happy Corner 🌈</a>
+        <a href="#smile-station" class="nav-link">Smile Booster 😊</a>
+        <a href="#secret-box" class="nav-link">Secret Note 🎁</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Accessibility motion toggle -->
+        <button id="toggle-motion-btn" class="ctrl-btn" type="button" aria-label="Toggle motion animations" title="Pause or resume floating animations">
+          <span class="ctrl-icon" aria-hidden="true">✨</span>
+          <span class="ctrl-label">Pause Motion</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================
+         1. HERO / WELCOME SECTION
+         ========================================== -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-container">
+        
+        <!-- Dreamy Friendship Card -->
+        <div class="hero-card">
+          <div class="badge-pill">
+            <span class="badge-icon">💖</span> Bestie Safe Haven &bull; Made Just For Layuuu
+          </div>
+
+          <!-- Required Welcome Heading & Subtitle -->
+          <h1 class="hero-title">Hey, Layuuu! 💗</h1>
+          <p class="hero-subtitle">A little happy place made just for you.</p>
+
+          <!-- Cute Friendship Illustration (CSS & SVG based) -->
+          <div class="cute-mascot-wrapper" aria-hidden="true">
+            <div class="mascot-bubble">
+              <span class="mascot-butterfly left">🦋</span>
+              <span class="mascot-flower left">🌷</span>
+              <div class="mascot-core">
+                <span class="mascot-face">🌸✨🧸✨🌸</span>
+              </div>
+              <span class="mascot-flower right">🌻</span>
+              <span class="mascot-butterfly right">🦋</span>
+            </div>
+          </div>
+
+          <p class="hero-intro-text">
+            Welcome to your personal sanctuary of sunshine, warmth, and peace. Whenever life gets overwhelming, busy, or tiring, you can always come back here to catch your breath, smile, and remember how truly amazing you are.
+          </p>
+
+          <div class="hero-buttons">
+            <!-- Required Surprise Trigger Button -->
+            <button id="open-surprise-btn" class="btn btn-primary pulse-btn" type="button">
+              Open Your Little Surprise 💌
+            </button>
+            <a href="#happy-corner" class="btn btn-secondary">
+              Explore Happy Corner 🌈
+            </a>
+          </div>
+
+          <!-- Quick interactive tap cheer counter -->
+          <div class="cheer-counter-wrapper">
+            <button id="send-cheer-btn" class="btn-cheer" type="button" aria-label="Tap to send virtual hugs to Layuuu">
+              <span class="heart-pulse">💗</span>
+              <span>Tap to send yourself a warm hug!</span>
+            </button>
+            <p id="cheer-count-display" class="cheer-count-text">You have received <strong id="cheer-number">128</strong> warm hugs today!</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         2. SURPRISE MESSAGE SECTION & MODAL
+         ========================================== -->
+    <section id="surprise-section" class="surprise-section">
+      <div class="container">
+        <div class="envelope-preview-card">
+          <div class="envelope-stamp">
+            <span>Special Delivery 📬</span>
+          </div>
+          <div class="envelope-graphic" aria-hidden="true">
+            <div class="envelope-flap"></div>
+            <div class="envelope-letter-peep">💌</div>
+            <div class="envelope-body"></div>
+          </div>
+          <h2 class="section-title">A Heartfelt Note Awaits You</h2>
+          <p class="section-desc">
+            A little reminder from your best friend Vishnu to brighten up your world.
+          </p>
+          <button id="open-envelope-btn" class="btn btn-primary" type="button">
+            Read Vishnu’s Letter 💌
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SURPRISE MODAL / OVERLAY (Contains exact requested message) -->
+    <div id="surprise-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="surprise-title" hidden>
+      <div class="modal-card">
+        <button id="close-surprise-btn" class="modal-close-btn" type="button" aria-label="Close surprise message">&times;</button>
+        
+        <div class="modal-decor top" aria-hidden="true">
+          <span>✨</span>
+          <span>🌸</span>
+          <span>💖</span>
+          <span>🌸</span>
+          <span>✨</span>
+        </div>
+
+        <div class="letter-badge">Personal Letter from Vishnu 🌸</div>
+
+        <h3 id="surprise-title" class="letter-heading">For My Dearest Friend, Layuuu 💌</h3>
+
+        <div class="letter-content">
+          <!-- Exact Required Verbatim Text -->
+          <blockquote class="letter-quote">
+            “Hey Layuuu! 💗 Even on difficult days, remember that you deserve happiness, kindness, and people who treat you with honesty and respect. Take your time, keep believing in yourself, and never forget that you matter. I'm always cheering for you as your friend. — Vishnu 💗”
+          </blockquote>
+        </div>
+
+        <div class="modal-decor bottom" aria-hidden="true">
+          <span>🦋</span>
+          <span>🌷</span>
+          <span>⭐</span>
+          <span>🌷</span>
+          <span>🦋</span>
+        </div>
+
+        <div class="letter-actions">
+          <button id="modal-celebrate-btn" class="btn btn-accent" type="button">
+            Release Confetti! 🎉
+          </button>
+          <button id="modal-copy-btn" class="btn btn-outline" type="button">
+            Copy Sweet Note 📋
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         3. INTERACTIVE SMILE & MOOD BOOSTER STATION
+         ========================================== -->
+    <section id="smile-station" class="smile-station-section">
+      <div class="container">
+        <div class="station-header">
+          <div class="section-tag">Instant Positivity ✨</div>
+          <h2 class="section-title">Need a Quick Smile Right Now? 😊</h2>
+          <p class="section-desc">
+            Tap a mood below or press the "Make Me Smile" button for instant personalized encouragement!
+          </p>
+        </div>
+
+        <!-- Interactive Mood Buttons -->
+        <div class="mood-chips-container" role="group" aria-label="Select how you feel">
+          <button class="mood-chip active" data-mood="general" type="button">
+            <span>✨</span> Daily Cheer
+          </button>
+          <button class="mood-chip" data-mood="tired" type="button">
+            <span>☕</span> Feeling Tired
+          </button>
+          <button class="mood-chip" data-mood="overwhelmed" type="button">
+            <span>🌧️</span> Overwhelmed
+          </button>
+          <button class="mood-chip" data-mood="doubt" type="button">
+            <span>💭</span> Doubting Myself
+          </button>
+          <button class="mood-chip" data-mood="laugh" type="button">
+            <span>🌷</span> Wholesome Giggles
+          </button>
+          <button class="mood-chip" data-mood="friend" type="button">
+            <span>🫂</span> Bestie Hug
+          </button>
+        </div>
+
+        <!-- Dynamic Cheer Display Box -->
+        <div class="smile-display-card" id="smile-box">
+          <div class="smile-card-icon" id="smile-icon" aria-hidden="true">🌸</div>
+          <div class="smile-card-body">
+            <h3 id="smile-title" class="smile-card-title">You Are Truly One In A Million, Layuuu!</h3>
+            <p id="smile-text" class="smile-card-text">
+              Don’t ever forget how much warmth and positive light you bring into the world. You make everything brighter just by being yourself!
+            </p>
+          </div>
+        </div>
+
+        <div class="station-actions">
+          <!-- Required "Make Me Smile" button -->
+          <button id="make-me-smile-btn" class="btn btn-accent" type="button">
+            Make Me Smile! 😊
+          </button>
+          <!-- Required random positive quote button -->
+          <button id="new-quote-btn" class="btn btn-outline" type="button">
+            New Positive Quote ✨
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         4. THE HAPPY CORNER (6 Interactive Cards)
+         ========================================== -->
+    <section id="happy-corner" class="happy-corner-section">
+      <div class="container">
+        <div class="station-header">
+          <div class="section-tag">Warm & Cozy Corner 🌈</div>
+          <h2 class="section-title">The Happy Corner</h2>
+          <p class="section-desc">
+            Explore these six special cards created to lift your spirits, remind you of your worth, and bring a smile to your day.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          
+          <!-- Card 1: Positive Quotes -->
+          <article class="corner-card" id="card-positive-quotes">
+            <div class="card-header">
+              <span class="card-icon" aria-hidden="true">🌸</span>
+              <span class="card-tag">Mindset & Light</span>
+            </div>
+            <h3 class="card-title">Positive Quotes</h3>
+            <p class="card-subtitle">Words of encouragement picked just for Layuuu.</p>
+            
+            <div class="quote-display-area">
+              <p class="interactive-quote-text" id="corner-quote-text">
+                “You don't have to have everything figured out today. Just take one gentle step at a time.”
+              </p>
+              <span class="interactive-quote-author" id="corner-quote-author">— Gentle Reminder</span>
+            </div>
+
+            <div class="card-footer">
+              <button class="card-action-btn" id="next-corner-quote-btn" type="button">
+                <span>🔄</span> Shuffle Quote
+              </button>
+              <button class="card-secondary-btn" id="copy-quote-btn" type="button" title="Copy quote">
+                <span>📋</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 2: Self-Care Reminders -->
+          <article class="corner-card" id="card-self-care">
+            <div class="card-header">
+              <span class="card-icon" aria-hidden="true">🌿</span>
+              <span class="card-tag">Gentle Habits</span>
+            </div>
+            <h3 class="card-title">Self-Care Reminders</h3>
+            <p class="card-subtitle">Little kindnesses you deserve to give yourself today.</p>
+            
+            <ul class="self-care-list" id="self-care-list" role="list">
+              <li>
+                <label class="check-item">
+                  <input type="checkbox" class="self-care-checkbox" />
+                  <span class="custom-check"></span>
+                  <span class="check-label">Drink a soothing glass of water 💧</span>
+                </label>
+              </li>
+              <li>
+                <label class="check-item">
+                  <input type="checkbox" class="self-care-checkbox" />
+                  <span class="custom-check"></span>
+                  <span class="check-label">Relax your shoulders & un-clench your jaw ☁️</span>
+                </label>
+              </li>
+              <li>
+                <label class="check-item">
+                  <input type="checkbox" class="self-care-checkbox" />
+                  <span class="custom-check"></span>
+                  <span class="check-label">Take 3 slow, deep, relaxing breaths 🧘‍♀️</span>
+                </label>
+              </li>
+              <li>
+                <label class="check-item">
+                  <input type="checkbox" class="self-care-checkbox" />
+                  <span class="custom-check"></span>
+                  <span class="check-label">Step outside for fresh air or sunlight ☀️</span>
+                </label>
+              </li>
+              <li>
+                <label class="check-item">
+                  <input type="checkbox" class="self-care-checkbox" />
+                  <span class="custom-check"></span>
+                  <span class="check-label">Treat yourself without any guilt 🍰</span>
+                </label>
+              </li>
+            </ul>
+
+            <div class="card-footer">
+              <span class="progress-note" id="self-care-progress">Tap the circles to check them off! 💖</span>
+            </div>
+          </article>
+
+          <!-- Card 3: Fun Activities -->
+          <article class="corner-card" id="card-fun-activities">
+            <div class="card-header">
+              <span class="card-icon" aria-hidden="true">🎨</span>
+              <span class="card-tag">Joyful Breaks</span>
+            </div>
+            <h3 class="card-title">Fun Activities</h3>
+            <p class="card-subtitle">A quick, cheerful reset when you need a joyful distraction.</p>
+            
+            <div class="activity-box" id="activity-box">
+              <div class="activity-icon" id="activity-icon">🎧</div>
+              <p class="activity-text" id="activity-text">
+                Put on your favorite comfort song, close your eyes, and let yourself sing or sway along!
+              </p>
+            </div>
+
+            <div class="card-footer">
+              <button class="card-action-btn" id="random-activity-btn" type="button">
+                <span>🎲</span> Pick a Fun Idea
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 4: Dreams & Goals -->
+          <article class="corner-card" id="card-dreams-goals">
+            <div class="card-header">
+              <span class="card-icon" aria-hidden="true">🚀</span>
+              <span class="card-tag">Belief & Courage</span>
+            </div>
+            <h3 class="card-title">Dreams & Goals</h3>
+            <p class="card-subtitle">You have the courage and grace to achieve big things.</p>
+            
+            <div class="dreams-content">
+              <p class="dreams-statement">
+                ✨ <strong>Remember, Layuuu:</strong> Great things take time. Every tiny effort you make counts, and every small win is worth celebrating.
+              </p>
+              <div class="wish-input-wrapper">
+                <input type="text" id="wish-input" class="wish-input" placeholder="Type a dream or wish here..." maxlength="60" aria-label="Type a dream or wish" />
+                <button id="send-wish-btn" class="wish-btn" type="button">Launch Star ⭐</button>
+              </div>
+              <div id="wish-feedback" class="wish-feedback" aria-live="polite"></div>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-tip">Keep believing in your spark! 🌟</span>
+            </div>
+          </article>
+
+          <!-- Card 5: Mood Boosters -->
+          <article class="corner-card" id="card-mood-boosters">
+            <div class="card-header">
+              <span class="card-icon" aria-hidden="true">☀️</span>
+              <span class="card-tag">Interactive Joy</span>
+            </div>
+            <h3 class="card-title">Mood Boosters</h3>
+            <p class="card-subtitle">Virtual Bubble Wrap! Pop each heart for a sweet compliment.</p>
+            
+            <div class="bubble-wrap-grid" id="bubble-wrap" role="group" aria-label="Pop bubble hearts for compliments">
+              <!-- Pop bubbles generated by JavaScript -->
+            </div>
+
+            <div class="card-footer">
+              <button class="card-action-btn" id="reset-bubbles-btn" type="button">
+                <span>🔄</span> Reset Bubbles
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 6: Little Reasons to Smile -->
+          <article class="corner-card" id="card-reasons-smile">
+            <div class="card-header">
+              <span class="card-icon" aria-hidden="true">🌻</span>
+              <span class="card-tag">Simple Wonders</span>
+            </div>
+            <h3 class="card-title">Little Reasons to Smile</h3>
+            <p class="card-subtitle">Tiny magical everyday things that make life sweet.</p>
+            
+            <div class="reasons-list-wrapper">
+              <div class="reason-pill" id="reason-display">
+                <span class="reason-emoji" id="reason-emoji">☕</span>
+                <span class="reason-text" id="reason-text">The warm, comforting first sip of hot chocolate or tea on a cozy evening.</span>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <button class="card-action-btn" id="next-reason-btn" type="button">
+                <span>✨</span> Show Another Reason
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         5. SECRET SURPRISE / HIDDEN MESSAGE BOX
+         ========================================== -->
+    <section id="secret-box" class="secret-box-section">
+      <div class="container">
+        <div class="secret-card">
+          <div class="secret-badge">A Bestie Secret 🎁</div>
+          <h2 class="section-title">A Special Surprise For Layuuu</h2>
+          <p class="section-desc">
+            Tap the surprise button below to unlock a hidden secret message created exclusively for you!
+          </p>
+
+          <div class="secret-vault" id="secret-vault">
+            <div class="vault-gift-icon" id="vault-gift-icon" aria-hidden="true">🎁</div>
+            <div class="vault-revealed-content" id="vault-revealed-content" hidden>
+              <div class="vault-stars" aria-hidden="true">✨ ⭐ 💖 ⭐ ✨</div>
+              <h3 class="vault-headline">You Are Unconditionally Appreciated! 🌟</h3>
+              <p class="vault-message">
+                “Friendship with you is a genuine blessing, Layuuu. Whenever things feel heavy or people let you down, never forget that your kindness, strength, and integrity are your superpowers. Walk tall, hold your head high, and smile — you are doing better than you know!”
+              </p>
+              <div class="vault-signature">— Always in your corner, Vishnu 💗</div>
+            </div>
+          </div>
+
+          <!-- Required Surprise Button that reveals hidden message -->
+          <button id="reveal-secret-btn" class="btn btn-primary" type="button">
+            Unwrap The Secret Message 🎁
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       6. FOOTER SECTION (Personalized)
+       ========================================== -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-decor" aria-hidden="true">
+        <span>🌸</span>
+        <span>✨</span>
+        <span>💖</span>
+        <span>✨</span>
+        <span>🌸</span>
+      </div>
+
+      <!-- Required Footer Attribution -->
+      <p class="footer-credit">
+        <strong>Made with friendship by Vishnu 💗</strong>
+      </p>
+
+      <p class="footer-subtext">
+        Created with lots of love and respect for Layana (“Layuuu”). Keep shining brightly every single day!
+      </p>
+
+      <div class="footer-actions">
+        <a href="#hero" class="back-to-top-link" aria-label="Back to top of page">
+          <span>↑</span> Back to Top
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js" defer></script>
+</body>
+</html>
